@@ -1,0 +1,32 @@
+name: Build Windows installer
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install yt-dlp faster-whisper imageio-ffmpeg pyinstaller
+      - name: Build application
+        shell: pwsh
+        run: |
+          pyinstaller --noconfirm --clean --windowed --onedir --name ViralClipsGenerator --collect-all faster_whisper --collect-all ctranslate2 --collect-all av --collect-all tokenizers --collect-all yt_dlp --collect-all imageio_ffmpeg viral_clips_generator.py
+      - name: Install Inno Setup
+        run: choco install innosetup --yes --no-progress
+      - name: Create installer
+        shell: pwsh
+        run: '& "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" installer.iss'
+      - name: Upload installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: ViralClipsGenerator-Setup-Windows11
+          path: Output/ViralClipsGenerator_Setup.exe
+          if-no-files-found: error
