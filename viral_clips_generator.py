@@ -2,7 +2,7 @@ import os, re, json, shutil, subprocess, threading, tkinter as tk
 from tkinter import ttk, filedialog, messagebox
 
 APP="Viral Clips Generator"
-OUT="viral_clips_output"
+OUT=os.path.join(os.path.expanduser("~"),"ViralClips")
 
 def ffmpeg_path():
     p=shutil.which("ffmpeg")
@@ -13,7 +13,8 @@ def ffmpeg_path():
 def download_video(url, out, log):
     import yt_dlp
     log("Descargando video...")
-    opts={"format":"bv*+ba/b","merge_output_format":"mp4",
+        os.makedirs(out,exist_ok=True)
+    opts={"format":"bv*+ba/b","merge_output_format":"mp4","ffmpeg_location":ffmpeg_path(),
           "outtmpl":os.path.join(out,"source.%(ext)s"),"noplaylist":True,"quiet":True}
     with yt_dlp.YoutubeDL(opts) as y: y.download([url])
     for f in os.listdir(out):
