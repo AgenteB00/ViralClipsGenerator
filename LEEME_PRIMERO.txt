@@ -1,0 +1,17 @@
+VIRAL CLIPS GENERATOR - WINDOWS 11
+
+Este paquete contiene el programa y el proceso para compilar el instalador .EXE
+en un servidor Windows de GitHub. No necesitas instalar Python en tu PC para
+usar la aplicación. Python se utiliza solo durante la compilación remota.
+
+1. Crea una cuenta/inicia sesión en https://github.com
+2. Crea un repositorio llamado ViralClipsGenerator.
+3. Sube TODOS los archivos de esta carpeta, incluida la carpeta oculta .github.
+4. Abre Actions > Build Windows installer > Run workflow.
+5. Al terminar, abre la ejecución y descarga el artefacto
+   ViralClipsGenerator-Setup-Windows11.
+6. Extrae el ZIP descargado y ejecuta ViralClipsGenerator_Setup.exe.
+
+La primera vez que analices un video, Whisper descargará su modelo de voz.
+La puntuación de interés es heurística, no garantiza viralidad. Usa solo videos
+que tengas derecho a descargar y reutilizar. La compilación requiere prueba real.
