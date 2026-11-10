@@ -13,7 +13,7 @@ def ffmpeg_path():
 def download_video(url, out, log):
     import yt_dlp
     log("Descargando video...")
-        os.makedirs(out,exist_ok=True)
+    os.makedirs(out,exist_ok=True)
     opts={"format":"bv*+ba/b","merge_output_format":"mp4","ffmpeg_location":ffmpeg_path(),
           "outtmpl":os.path.join(out,"source.%(ext)s"),"noplaylist":True,"quiet":True}
     with yt_dlp.YoutubeDL(opts) as y: y.download([url])
